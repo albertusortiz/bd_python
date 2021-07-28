@@ -1,13 +1,8 @@
 import pymysql
 
-username = "doadmin"
-password = "ypdubizi16nke1pw"
-host = "codigofacilito-mysql-do-user-9539781-0.b.db.ondigitalocean.com"
-port = 25060
-database = "pythondb"
+from decouple import config
 
-DROP_TABLE_USERS = """DROP TABLE IF EXISTS users
-"""
+DROP_TABLE_USERS = "DROP TABLE IF EXISTS users"
 
 USERS_TABLE = """CREATE TABLE users(
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -20,12 +15,21 @@ USERS_TABLE = """CREATE TABLE users(
 if __name__ == '__main__':
     
     try:
-        connect = pymysql.Connect(host=host, port=port, user=username, passwd=password, db=database)
+        connect = pymysql.Connect(host=config('HOST_DB'),
+                                port=int(config('PORT_DB')),
+                                user=config('USERNAME_DB'),
+                                passwd=config('PASSWORD_DB'),
+                                db=config('DATABASE'))
 
-        cursor = connect.cursor()
+        with connect.cursor() as cursor:
+            cursor.execute(DROP_TABLE_USERS)
+            cursor.execute(USERS_TABLE)
 
-        cursor.execute(DROP_TABLE_USERS)
-        cursor.execute(USERS_TABLE)
+            query = "INSERT INTO users(username, password, email) VALUES (%s, %s, %s)"
+            values = ("albertusortiz", "password123", "alberto.ortiz.vargas@gmail.com")
+
+            cursor.execute(query, values)
+            connect.commit() # Persistir todos los cambios realizados hasta el momento.
 
     except pymysql.err.OperationalError as err:
     #except pymysql.err.ProgrammingError as err:
@@ -33,7 +37,6 @@ if __name__ == '__main__':
         print(err)
 
     finally:
-        cursor.close()
         connect.close()
 
         print('Conexión finalizada de forma exitosa.')
