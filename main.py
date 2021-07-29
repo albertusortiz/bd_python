@@ -57,6 +57,12 @@ if __name__ == '__main__':
             
             connect.commit() # Persistir todos los cambios realizados hasta el momento.
 
+            query = "SELECT id, username, email FROM users WHERE id >= 3"
+            rows = cursor.execute(query)
+
+            for user in cursor.fetchall():
+                print(user)
+
     except pymysql.err.OperationalError as err:
     #except pymysql.err.ProgrammingError as err:
         print("No fue posible realizar la conexión.")
