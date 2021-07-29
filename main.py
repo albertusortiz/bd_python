@@ -57,11 +57,20 @@ if __name__ == '__main__':
             
             connect.commit() # Persistir todos los cambios realizados hasta el momento.
 
-            query = "SELECT id, username, email FROM users WHERE id >= 3"
+            # Limitando cantidad de registros obtenidos.
+            # query = "SELECT * FROM users LIMIT 3"
+            query = "SELECT * FROM users WHERE id = 4"
             rows = cursor.execute(query)
 
-            for user in cursor.fetchall():
-                print(user)
+            # Con el metodo fetchall obtenemos todos los registros de la consulta.
+            #for user in cursor.fetchall():
+            # Con el metodo fetchmany nos retornara una cantidad limitada de registros con base en el argumento colocado.
+            #for user in cursor.fetchmany(3):
+            # Con el metodo fetchone obtenemos el primer registro.
+            #   print(user)
+            
+            user = cursor.fetchone()
+            print(user)
 
     except pymysql.err.OperationalError as err:
     #except pymysql.err.ProgrammingError as err:
