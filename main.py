@@ -25,15 +25,18 @@ if __name__ == '__main__':
             cursor.execute(DROP_TABLE_USERS)
             cursor.execute(USERS_TABLE)
 
+            # Insertando valores con Placeholders
             #query = "INSERT INTO users(username, password, email) VALUES (%s, %s, %s)"
             #values = ("albertusortiz", "password123", "alberto.ortiz.vargas@gmail.com")
-
             #cursor.execute(query, values)
 
+            # Insertando valores con valores directos
             #query = "INSERT INTO users(username, password, email) VALUES('albertusortiz','password','alberto@gmail.com')"
 
+            # Insertando valores con metodo format
             #query = "INSERT INTO users(username, password, email) VALUES('{}', '{}', '{}')".format("user1","password","user1@gmail.com")
 
+            # Insertando valores con metodo format string
             username = "user2"
             password = "password"
             email = "user2@gmail.com"
