@@ -25,10 +25,22 @@ if __name__ == '__main__':
             cursor.execute(DROP_TABLE_USERS)
             cursor.execute(USERS_TABLE)
 
-            query = "INSERT INTO users(username, password, email) VALUES (%s, %s, %s)"
-            values = ("albertusortiz", "password123", "alberto.ortiz.vargas@gmail.com")
+            #query = "INSERT INTO users(username, password, email) VALUES (%s, %s, %s)"
+            #values = ("albertusortiz", "password123", "alberto.ortiz.vargas@gmail.com")
 
-            cursor.execute(query, values)
+            #cursor.execute(query, values)
+
+            #query = "INSERT INTO users(username, password, email) VALUES('albertusortiz','password','alberto@gmail.com')"
+
+            #query = "INSERT INTO users(username, password, email) VALUES('{}', '{}', '{}')".format("user1","password","user1@gmail.com")
+
+            username = "user2"
+            password = "password"
+            email = "user2@gmail.com"
+
+            query = f"INSERT INTO users(username, password, email) VALUES('{username}','{password}','{email}')"
+
+            cursor.execute(query)
             connect.commit() # Persistir todos los cambios realizados hasta el momento.
 
     except pymysql.err.OperationalError as err:
