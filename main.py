@@ -72,10 +72,14 @@ if __name__ == '__main__':
             #user = cursor.fetchone()
             #print(user)
 
-            query = "UPDATE users SET username = %s, password = %s WHERE id = %s"
-            values = ("albertusortiz", "nuevaPASS", 1)
+            #query = "UPDATE users SET username = %s, password = %s WHERE id = %s"
+            #values = ("albertusortiz", "nuevaPASS", 1)
 
-            cursor.execute(query, values)
+            #cursor.execute(query, values)
+            #connect.commit()
+
+            query = "DELETE FROM users WHERE id = %s"
+            cursor.execute(query, (5))
             connect.commit()
 
     except pymysql.err.OperationalError as err:
