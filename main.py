@@ -12,6 +12,14 @@ USERS_TABLE = """CREATE TABLE users(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )"""
 
+users = [
+    ("user1", "password", "user1@gmail.com"),
+    ("user2", "password", "user2@gmail.com"),
+    ("user3", "password", "user3@gmail.com"),
+    ("user4", "password", "user4@gmail.com"),
+    ("user5", "password", "user5@gmail.com"),
+]
+
 if __name__ == '__main__':
     
     try:
@@ -26,9 +34,12 @@ if __name__ == '__main__':
             cursor.execute(USERS_TABLE)
 
             # Insertando valores con Placeholders
-            #query = "INSERT INTO users(username, password, email) VALUES (%s, %s, %s)"
-            #values = ("albertusortiz", "password123", "alberto.ortiz.vargas@gmail.com")
-            #cursor.execute(query, values)
+            query = "INSERT INTO users(username, password, email) VALUES (%s, %s, %s)"
+
+            #for user in users:
+            #    cursor.execute(query, user)
+
+            cursor.executemany(query, users)
 
             # Insertando valores con valores directos
             #query = "INSERT INTO users(username, password, email) VALUES('albertusortiz','password','alberto@gmail.com')"
@@ -37,13 +48,13 @@ if __name__ == '__main__':
             #query = "INSERT INTO users(username, password, email) VALUES('{}', '{}', '{}')".format("user1","password","user1@gmail.com")
 
             # Insertando valores con metodo format string
-            username = "user2"
-            password = "password"
-            email = "user2@gmail.com"
+            #username = "user2"
+            #password = "password"
+            #email = "user2@gmail.com"
+            #query = f"INSERT INTO users(username, password, email) VALUES('{username}','{password}','{email}')"
 
-            query = f"INSERT INTO users(username, password, email) VALUES('{username}','{password}','{email}')"
-
-            cursor.execute(query)
+            #cursor.execute(query)
+            
             connect.commit() # Persistir todos los cambios realizados hasta el momento.
 
     except pymysql.err.OperationalError as err:
