@@ -59,8 +59,8 @@ if __name__ == '__main__':
 
             # Limitando cantidad de registros obtenidos.
             # query = "SELECT * FROM users LIMIT 3"
-            query = "SELECT * FROM users WHERE id = 4"
-            rows = cursor.execute(query)
+            #query = "SELECT * FROM users WHERE id = 4"
+            #rows = cursor.execute(query)
 
             # Con el metodo fetchall obtenemos todos los registros de la consulta.
             #for user in cursor.fetchall():
@@ -69,8 +69,14 @@ if __name__ == '__main__':
             # Con el metodo fetchone obtenemos el primer registro.
             #   print(user)
             
-            user = cursor.fetchone()
-            print(user)
+            #user = cursor.fetchone()
+            #print(user)
+
+            query = "UPDATE users SET username = %s, password = %s WHERE id = %s"
+            values = ("albertusortiz", "nuevaPASS", 1)
+
+            cursor.execute(query, values)
+            connect.commit()
 
     except pymysql.err.OperationalError as err:
     #except pymysql.err.ProgrammingError as err:
